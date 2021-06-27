@@ -1,67 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
-function FancyBorder(props) {
+function Example() {
+    const [count, setCount] = useState(0);
+
+    // Similar a componentDidMount y componentDidUpdate:
+    useEffect(() => {
+        // Actualiza el título del documento usando la Browser API
+        document.title = `You clicked ${count} times`;
+    });
+
     return (
-        <div className={'FancyBorder FancyBorder-' + props.color}>
-            {props.children}
+        <div>
+            <p>You clicked {count} times</p>
+            <button onClick={() => setCount(count + 1)}>
+                Click me
+            </button>
         </div>
     );
 }
-function Dialog(props) {
-    return (
-        <FancyBorder color="blue">
-            <h1 className="Dialog-title">
-                {props.title}
-            </h1>
-            <p className="Dialog-message">
-                {props.message}
-            </p>
-            {props.children}
-        </FancyBorder>
-    );
-}
 
-class SignUpDialog extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSignUp = this.handleSignUp.bind(this);
-        this.state = {login: ''};
-    }
-
-    render() {
-        return (
-            <Dialog title="Mars Exploration Program"
-                    message="How should we refer to you?">
-                <input value={this.state.login}
-                       onChange={this.handleChange} />
-                <button onClick={this.handleSignUp}>
-                    ¡Apúntame!
-                </button>
-            </Dialog>
-        );
-    }
-
-    handleChange(e) {
-        this.setState({login: e.target.value});
-    }
-
-    handleSignUp() {
-        alert(`Bienvenido abordo, ${this.state.login}!`);
-    }
-}
-
-function WelcomeDialog() {
-    return (
-        <Dialog
-            title="Welcome"
-            message="Thank you for visiting our spacecraft!" />
-    );
+function ExampleWithManyStates() {
+    // Declarar múltiple variables de estado!
+    const [age, setAge] = useState(42);
+    const [fruit, setFruit] = useState('banana');
+    const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+    // ...
 }
 ReactDOM.render(
-    <WelcomeDialog />,
+    <Example />,
     document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
